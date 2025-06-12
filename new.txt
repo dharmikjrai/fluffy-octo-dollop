@@ -1,0 +1,15 @@
+
+    data = {}
+    with open(file_path, "r", encoding="utf-8") as f:
+        current_key = None
+        for line in f:
+            if not line.strip().startswith("#"):
+                break
+            content = line.lstrip("#").strip()
+            if ":" in content:
+                key, value = content.split(":", 1)
+                data[key.strip()] = value.strip()
+                current_key = key.strip()
+            elif current_key:
+                data[current_key] += "\n" + content.strip()
+    return data
